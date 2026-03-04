@@ -1,0 +1,67 @@
+<div class="container mt-4">
+
+  <h1 class="text-center mb-4">Personajes de Rick and Morty</h1>
+
+  <!-- Filtros -->
+  <div class="d-flex gap-2 mb-4">
+    <input 
+      type="text"
+      class="form-control"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="searchName">
+
+    <select 
+      class="form-select"
+      [(ngModel)]="selectedStatus">
+      <option value="">Todos</option>
+      <option value="alive">Alive</option>
+      <option value="dead">Dead</option>
+      <option value="unknown">Unknown</option>
+    </select>
+
+    <button 
+      class="btn btn-primary"
+      (click)="loadCharacters()">
+      Buscar
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center">
+    Cargando personajes...
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="!loading && errorMessage" class="alert alert-warning">
+    {{ errorMessage }}
+  </div>
+
+
+  <!-- Tarjetas -->
+  <div class="row" *ngIf="!loading && characters.length > 0">
+
+    <div 
+      class="col-md-3 mb-4"
+      *ngFor="let character of characters">
+
+      <div class="card h-100 shadow-sm">
+        <img 
+          [src]="character.image"
+          class="card-img-top"
+          loading="lazy"
+          alt="{{ character.name }}">
+
+        <div class="card-body">
+          <h5 class="card-title">{{ character.name }}</h5>
+          <p class="card-text">
+            Estado: {{ character.status }} <br>
+            Especie: {{ character.species }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
